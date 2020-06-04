@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.robin.mapper.BookMapper">
+    <select id="findBookById" parameterType="integer" resultType="book">
+        select * from book where bookId = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.robin.model.Book">
+        select * from book
+    </select>
+
+    <insert id="addBook" parameterType="book">
+        insert into book (bookName, bookAuthor, bookPrice, bookAddress) values (#{bookName}, #{bookAuthor}, #{bookPrice}, #{bookAddress})
+    </insert>
+
+    <update id="updateBook" parameterType="book">
+        update book
+        <set>
+            <if test="bookName != null">
+                bookName = #{bookName},
+            </if>
+            <if test="bookAuthor != null">
+                bookAuthor = #{bookAuthor},
+            </if>
+            <if test="bookPrice != null">
+                bookPrice = #{bookPrice},
+            </if>
+            <if test="bookAddress != null">
+                bookAddress = #{bookAddress},
+            </if>
+        </set>
+        where bookId = #{bookId}
+    </update>
+
+    <delete id="deleteBook" parameterType="integer">
+        delete from book where bookId = #{id}
+    </delete>
+</mapper>
